@@ -20,20 +20,26 @@ import java.sql.Statement;
 public class ReadUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Connection connection;
-	private Statement statement;
       
         public void init() {
         	try {
+        		System.out.print("init()");
+        		Class.forName("com.mysql.jdbc.Driver");
         		connection = DriverManager.getConnection("jdbc:mysql://localhost/mydb", "root", "test");
         	} catch (SQLException e) {
         		e.printStackTrace();
-        	}
+        	} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         	
         	
         }
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+			throws ServletException, IOException 
 	{
+		System.out.println("doGet()");
 		
 		try {
 			Statement statement = connection.createStatement();
