@@ -6,9 +6,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * Servlet implementation class CreateUserServlet
@@ -17,6 +19,7 @@ import java.sql.SQLException;
 public class CreateUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Connection connection;
+	private Statement statement;
       
         public void init() {
         	try {
@@ -27,12 +30,29 @@ public class CreateUserServlet extends HttpServlet {
         	
         	
         }
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
+	{
+		String firstName = request.getParameter("firstName");
+		String lastName = request.getParameter("lastName");
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		
+		try {
+			statement = connection.createStatement();
+			int result = statement.executeUpdate("insert into user table values('"+firstName+"','"+lastName+"','"+email+"', "
+					+ "'"+password+"')");
+			PrintWriter out = response.getWriter();
+			if (result>0) {
+			out.print("<H1>USER CREATED</H1>");
+			}
+			else {
+				out.print("<H1>ERROR CREATING USER</H1>");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void destroy() {
