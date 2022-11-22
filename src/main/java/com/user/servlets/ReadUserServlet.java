@@ -52,6 +52,19 @@ public class ReadUserServlet extends HttpServlet {
 			out.print("Email");
 			out.print("</th>");
 			out.print("</tr>");
+			while(resultSet.next()) {
+				out.println("<tr>");
+				out.println("<td>");
+				out.print(resultSet.getString(1));
+				out.println("</td>");
+				out.println("<td>");
+				out.print(resultSet.getString(2));
+				out.println("</td>");
+				out.println("<td>");
+				out.print(resultSet.getString(3));
+				out.println("</td>");
+				out.println("</tr>");
+			}
 			out.print("</table>");
 			
 		} catch (SQLException e) {
