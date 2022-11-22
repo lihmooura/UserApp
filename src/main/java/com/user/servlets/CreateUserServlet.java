@@ -6,6 +6,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  * Servlet implementation class CreateUserServlet
@@ -13,14 +16,15 @@ import java.io.IOException;
 @WebServlet("/addServlet")
 public class CreateUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CreateUserServlet() {
-        super();
-        // TODO Auto-generated constructor stub
+	private Connection connection;
+      
         public void init() {
+        	try {
+        		connection = DriverManager.getConnection("jdbc:mysql://localhost/mydb", "root", "test");
+        	} catch (SQLException e) {
+        		e.printStackTrace();
+        	}
+        	
         	
         }
 	/**
@@ -32,6 +36,12 @@ public class CreateUserServlet extends HttpServlet {
 	}
 	
 	public void destroy() {
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
