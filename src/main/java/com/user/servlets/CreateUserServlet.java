@@ -1,6 +1,7 @@
 package com.user.servlets;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebInitParam;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,7 +16,8 @@ import java.sql.Statement;
 /**
  * Servlet implementation class CreateUserServlet
  */
-@WebServlet("/addServlet")
+@WebServlet(urlPatterns="/addServlet",initParams= {@WebInitParam(name="dbUrl", value="jdbc:mysql://localhost/mydb"), 
+			@WebInitParam(name="dbUser", value="root"), @WebInitParam(name="dbPassword", value="test")})
 public class CreateUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Connection connection;
