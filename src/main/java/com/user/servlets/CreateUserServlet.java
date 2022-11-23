@@ -1,5 +1,6 @@
 package com.user.servlets;
 
+import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebInitParam;
 import jakarta.servlet.annotation.WebServlet;
@@ -23,9 +24,9 @@ public class CreateUserServlet extends HttpServlet {
 	private Connection connection;
 	private Statement statement;
       
-        public void init() {
+        public void init(ServletConfig config) {
         	try {
-        		connection = DriverManager.getConnection("jdbc:mysql://localhost/mydb", "root", "test");
+        		connection = DriverManager.getConnection(config.getInitParameter("dbUrl"), config.getInitParameter("dbUser"), config.getInitParameter("dbPassword"));
         	} catch (SQLException e) {
         		e.printStackTrace();
         	}
