@@ -19,4 +19,23 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+
+
+<servlet>
+	<servlet-name>ReadUserServlet</servlet-name>
+	<servlet-class>com.user.servlets.ReadUserServlets</servlet-class>
+	<init-param>
+		<param-name>dbUser</param-name>
+		<param-value>root</param-value>
+	</init-param>
+	<init-param>
+		<param-name>dbPassword</param-name>
+		<param-value>test</param-value>
+	</init-param>
+</servlet>
+<servlet-mapping>
+	<servlet-name>ReadUserServlet</servlet-name>
+	<url-pattern>/readServlet</url-pattern>
+</servlet-mapping>
+
 </web-app>
