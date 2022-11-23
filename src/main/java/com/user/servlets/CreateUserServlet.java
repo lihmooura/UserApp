@@ -1,8 +1,8 @@
 package com.user.servlets;
 
 import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebInitParam;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,22 +17,31 @@ import java.sql.Statement;
 /**
  * Servlet implementation class CreateUserServlet
  */
-@WebServlet(urlPatterns="/addServlet",initParams= {@WebInitParam(name="dbUrl", value="jdbc:mysql://localhost/mydb"), 
-			@WebInitParam(name="dbUser", value="root"), @WebInitParam(name="dbPassword", value="test")})
+@WebServlet(urlPatterns="/addServlet")
 public class CreateUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Connection connection;
 	private Statement statement;
       
-        public void init(ServletConfig config) {
-        	try {
-        		connection = DriverManager.getConnection(config.getInitParameter("dbUrl"), config.getInitParameter("dbUser"), config.getInitParameter("dbPassword"));
-        	} catch (SQLException e) {
-        		e.printStackTrace();
-        	}
-        	
-        	
-        }
+	 public void init(ServletConfig config) {
+     	try {
+     		ServletContext context = config.getServletContext();
+     		System.out.print("init()");
+     		Class.forName("com.mysql.jdbc.Driver");
+     		connection = DriverManager.getConnection(context.getInitParameter("dbUrl"), 
+     					context.getInitParameter("dbUser"), 
+     					context.getInitParameter("dbPassword"));
+     	} catch (SQLException e) {
+     	
+     		e.printStackTrace();
+     	} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+     	
+     	
+     }
+	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
 	{

@@ -1,6 +1,7 @@
 package com.user.servlets;
 
 import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,10 +24,12 @@ public class ReadUserServlet extends HttpServlet {
       
         public void init(ServletConfig config) {
         	try {
+        		ServletContext context = config.getServletContext();
         		System.out.print("init()");
         		Class.forName("com.mysql.jdbc.Driver");
-        		connection = DriverManager.getConnection(config.getInitParameter("dbUrl"), config.getInitParameter("dbUser"), 
-        					config.getInitParameter("dbPassword"));
+        		connection = DriverManager.getConnection(context.getInitParameter("dbUrl"), 
+        					context.getInitParameter("dbUser"), 
+        					context.getInitParameter("dbPassword"));
         	} catch (SQLException e) {
         	
         		e.printStackTrace();
