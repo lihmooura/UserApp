@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Enumeration;
 
 /**
  * Servlet implementation class CreateUserServlet
@@ -26,7 +27,17 @@ public class CreateUserServlet extends HttpServlet {
 	 public void init(ServletConfig config) {
      	try {
      		ServletContext context = config.getServletContext();
+     		
      		System.out.print("init()");
+     		
+     		Enumeration<String> parameterNames = context.getInitParameterNames();
+     		
+     		while(parameterNames.hasMoreElements()) {
+     			String eachName = parameterNames.nextElement();
+     			System.out.println("Context param name: " + eachName);
+     			System.out.println("Context param element: " + context.getInitParameter(eachName));
+     		}
+     		
      		Class.forName("com.mysql.jdbc.Driver");
      		connection = DriverManager.getConnection(context.getInitParameter("dbUrl"), 
      					context.getInitParameter("dbUser"), 
