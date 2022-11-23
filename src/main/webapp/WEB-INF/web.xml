@@ -25,6 +25,10 @@
 	<servlet-name>ReadUserServlet</servlet-name>
 	<servlet-class>com.user.servlets.ReadUserServlets</servlet-class>
 	<init-param>
+		<param-name>dbUrl</param-name>
+		<param-value>jdbc:mysql://localhost/mydb</param-value>
+	</init-param>
+	<init-param>
 		<param-name>dbUser</param-name>
 		<param-value>root</param-value>
 	</init-param>

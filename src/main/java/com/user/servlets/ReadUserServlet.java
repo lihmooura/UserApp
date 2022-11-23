@@ -1,5 +1,6 @@
 package com.user.servlets;
 
+import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,12 +21,14 @@ public class ReadUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private Connection connection;
       
-        public void init() {
+        public void init(ServletConfig config) {
         	try {
         		System.out.print("init()");
         		Class.forName("com.mysql.jdbc.Driver");
-        		connection = DriverManager.getConnection("jdbc:mysql://localhost/mydb", "root", "test");
+        		connection = DriverManager.getConnection(config.getInitParameter("dbUrl"), config.getInitParameter("dbUser"), 
+        					config.getInitParameter("dbPassword"));
         	} catch (SQLException e) {
+        	
         		e.printStackTrace();
         	} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
